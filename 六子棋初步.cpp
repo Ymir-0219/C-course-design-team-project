@@ -209,7 +209,7 @@ bool full()//判断棋盘已满
     int i = 0, j = 0;
     for (i = 0; i < N; i++)for (j = 0; j < N; j++)
     {
-        if (p[i][j] == ' ');
+        if (p[i][j] == '  ');
         return false;
     }
     return true;
@@ -380,7 +380,7 @@ void player()
     else printf("  轮到玩家下，请输入坐标(输入=0查看棋谱)： ");
     char c = '\n';
     int row = 0, col = 0;
-    while (c < '0')scanf_s("%c%d", &c, &row);
+    while (c < '0')scanf_s("%c%d", &c,1, &row,1);
     if (c == '=')
     {
         out_manual();
