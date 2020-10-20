@@ -83,7 +83,7 @@ void MainWindow::paintEvent(QPaintEvent *)
                                            "（3）黑先、白后，交替下子，每次只能下一子。\n"
                                            "（4）棋子下在棋盘的空白点上，棋子下定后，不得向其它点移动，不得从棋盘上拿掉或拿起另落别处。\n"
                                            "（5）黑方的第一枚棋子可下在棋盘任意交叉点上。\n"
-                                           "六子棋对局，整个对局过程中黑方有禁手，白方无禁手。黑方禁手有三三禁手、四四禁手和长连禁手三种。\n",QTextOption(Qt::AlignLeft));
+                                           "六子棋对局，整个对局过程中黑方有禁手，白方无禁手。黑方禁手有四四禁手、五五禁手和长连禁手三种。\n",QTextOption(Qt::AlignLeft));
 
         p.setBrush(Qt::gray);
         p.drawRect(900,525,200,50);
@@ -135,6 +135,17 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
         AI();
         gameOver();
     }
+}
+
+void MainWindow::initialization()
+{
+    for(int i=0;i<=N;i++){
+        for(int j=0;j<=N;j++){
+            Board[i][j]=0;
+        }
+    }
+    is_end=false;
+
 }
 
 int MainWindow::ok1(int x, int y)
@@ -387,10 +398,17 @@ void MainWindow::gameOver()
 {
     if (is_end){
         if(s==ais)
+        {
             scoretow+=1;
+            QMessageBox::about(this,"对局结束",playertow+"获胜");
+        }
         else
+        {
             scoreone+=1;
-        is_end=false;
+            QMessageBox::about(this,"对局结束",playerone+"获胜");
+        }
+        initialization();
+        s=3-s;
     }
 
 }
@@ -400,16 +418,11 @@ void MainWindow::showSon_1()
     w2.show();
     this->hide();
     delete start;
-    for(int i=0;i<=N;i++){
-        for(int j=0;j<=N;j++){
-            Board[i][j]=0;
-        }
-    }
-    is_end=false;
+    initialization();
     scoreone=0;
     scoretow=0;
     start = new QPushButton(this);
-    start->setGeometry(QRect(900,750,450,175));
+    start->setGeometry(QRect(900,725,450,175));
     start->setFont(QFont("微软雅黑",35,700,false));
     start->setText("返回主菜单");
     connect(start,SIGNAL(clicked()),this,SLOT(showSon_1()));

@@ -37,6 +37,7 @@ public:
 
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
+    void initialization();
     int ok1(int,int);
     int same(int row, int col, int key);
     int num(int row, int col, int u);
